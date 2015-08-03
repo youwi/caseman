@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html manifest="/cache.manifest">
+<!--<html manifest="/cache.manifest">-->
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
@@ -15,15 +15,16 @@
       <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
   -->
 
-  <link rel="stylesheet" type="text/css" href="app.min.css">
-  <script type="text/javascript" src="app.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="css/app.min.css">
+  <link rel="stylesheet" type="text/css" href="css/__patch.css">
+  <script type="text/javascript" src="js/app.min.js" charset="utf-8"></script>
 </head>
 
 <body>
 
 <div id="header">
   <a href="http://jsoneditoronline.org" class="header">
-    <img alt="JSON Editor Online" title="JSON Editor Online" src="img/logo.png" id="logo">
+    <!--<img alt="JSON Editor Online" title="JSON Editor Online" src="img/logo.png" id="logo">-->
   </a>
 
   <div id="name-menu">
@@ -33,73 +34,54 @@
 
   <div id="menu">
     <ul>
+        <li>
+            <a id="new" title="提交到后台去运行(引擎)">运行</a>
+        </li>
       <li>
-        <a id="new" title="Open a new, empty document">New</a>
+        <a id="new" title="新建一个json文件">新建</a>
       </li>
       <li>
-        <a id="open" title="Open file">
-          Open <span class="dropDownIcon">&#x25BC;</span>
+        <a id="open" title="上传打开本地json文件">
+          打开 <span class="dropDownIcon">&#x25BC;</span>
         </a>
         <ul id="openMenu">
           <li>
-            <a id="openFromDisk" title="Open file from disk">Open from disk</a>
+            <a id="openFromDisk" title="打开本地文件">打开本地文件</a>
           </li>
           <li>
-            <a id="openUrl" title="Open file from url">Open url</a>
+            <a id="openUrl" title="从url地址打开json">从url地址打开json</a>
           </li>
           <li id="filesList"></li>
         </ul>
       </li>
       <li>
-        <a id="save" title="Save file">
-          Save <span class="dropDownIcon">&#x25BC;</span>
+        <a id="save" title="保存">
+          保存 <span class="dropDownIcon">&#x25BC;</span>
         </a>
         <ul id="saveMenu">
           <li>
-            <a id="saveToDisk" title="Save file to disk">Save to disk</a>
+            <a id="saveToDisk" title="保存json文件到本地">下载</a>
           </li>
           <li>
-            <a id="saveOnline" title="Save and share online">Save online</a>
+            <a id="saveOnline" title="保存到服务器(线上)">保存到服务器</a>
           </li>
         </ul>
       </li>
       <li>
-        <a id="help" title="Open documentation (opens in a new window)" href="doc/index.html" target="_blank">Help</a>
+        <a id="help" title="Open documentation (opens in a new window)" href="doc/index.html" target="_blank">关于</a>
       </li>
     </ul>
   </div>
 
-  <!-- TODO: info, links, faq -->
-  <!--
-<div class="info" style="display:none;">
-  JSON, or JavaScript Object Notation, is a lightweight text-based open standard
-  designed for human-readable data interchange. It is derived from the JavaScript
-  scripting language for representing simple data structures and associative arrays,
-  called objects. Despite its relationship to JavaScript, it is language-independent,
-  with parsers available for most languages.
-  The JSON format was originally specified by Douglas Crockford, and is described
-  in RFC 4627. The official Internet media type for JSON is application/json.
-  The JSON filename extension is .json.
-  The JSON format is often used for serializing and transmitting structured data
-  over a network connection. It is used primarily to transmit data between a server
-  and web application, serving as an alternative to XML.
-  <br><br>
-  From <a target="_blank" href="http://en.wikipedia.org/wiki/Json">Wikipedia</a>
-</div>
 
-<div class="links" style="display:none;">
-  <a target="_blank" href="http://json.org/">http://json.org/</a><br>
-  <a target="_blank" href="http://en.wikipedia.org/wiki/Json">http://en.wikipedia.org/wiki/Json</a><br>
-</div>
-
-<div class="faq" style="display:none;"></div>
-  -->
 </div>
 
 <div id="auto">
-  <div id="contents">
-    <div id="codeEditor"></div>
 
+  <div id="contents">
+
+    <div id="filelist"></div>
+    <div id="codeEditor"></div>
     <div id="splitter">
       <div id="buttons">
         <div>
@@ -107,6 +89,7 @@
             <div class="convert-right"></div>
           </button>
         </div>
+
         <div>
           <button id="toCode" class="convert" title="Copy tree to code editor (Ctrl + <)">
             <div class="convert-left"></div>
@@ -116,25 +99,14 @@
       <div id="drag">
       </div>
     </div>
-
     <div id="treeEditor"></div>
 
     <script type="text/javascript">
       app.load();
-      app.resize();
+     // app.resize();
     </script>
 
-    <div id="ad">
-     <!--  // <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"> --></script>
-      <!-- jsoneditoronline_160x600 -->
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:160px;height:600px"
-           data-ad-client="ca-pub-7938810169574141"
-           data-ad-slot="4671869937"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
+
   </div>
 </div>
 
@@ -155,7 +127,7 @@
 </div>
 
 <script type="text/javascript">
-  app.resize();
+ // app.resize();
 </script>
 
 </body>
