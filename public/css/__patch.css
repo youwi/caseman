@@ -25,6 +25,21 @@
     transition: all 500ms ease;
 }
 
+
+.nav>li>a {
+    /*
+       修正tab标签页的边距
+    */
+    position: relative;
+    display: block;
+    padding: 1px 5px;
+}
+.navfix{
+    /*
+        修正导航条的高度
+    */
+    height:32px !important;
+}
 .navbar-layoutit {
     min-height: 32px;
     padding: 5px;
