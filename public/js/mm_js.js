@@ -77,6 +77,31 @@ function init(){
         $("#treeroot").append(domtree);
         $('#treeroot').treed();
     });
+
+
+    // create the editor
+    var container = document.getElementById("jestree");
+    var editor = new JSONEditor(container);
+    var container2 = document.getElementById("jestext");
+    var editor = new JSONEditor(container2,{
+        "mode": "text",
+        "indentation": 2
+    });
+
+    // set json
+    var json = {
+        "Array": [1, 2, 3],
+        "Boolean": true,
+        "Null": null,
+        "Number": 123,
+        "Object": {"a": "b", "c": "d"},
+        "String": "Hello World"
+    };
+    editor.set(json);
+
+    // get json
+    var json = editor.get();
+
 }
 
 

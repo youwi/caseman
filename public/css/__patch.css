@@ -46,8 +46,12 @@
     height:33px;
 }
 body {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    /*
+    修正导航条和35像素和 滚动条
+    */
+    height: calc(100% - 35px);
+    padding-top: 35px;
+    padding-bottom: 3px;
     margin-left: 200px;
     -webkit-transition: margin 500ms ease;
     -moz-transition: margin 500ms ease;
