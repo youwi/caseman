@@ -2,6 +2,15 @@
 
 
 
+var currfile="";//正在编辑的文件名,全名
+var currroot="";
+var editor_tree;
+var editor_text;
+var editor_ace;
+var editor_out_json;
+var editor_out_raw;
+var ace_editor;
+
 function buildTree(node,dir){
     //domtree+="<li>root";
     var domtree="";
@@ -47,13 +56,13 @@ $("#tagtask").click(function () {
 $("#edit").click(function () {
     window.frames.if.document.designMode = 'on';
 });
-$("#save").click(function () {
-    var filename = $('#WikiContent').data("file");
+$("#save").click(save=function () {
+   // var filename = $('#WikiContent').data("file");
 
-    $.post('/wikiSave', {
+    $.post('/caseSave', {
 
-        filename: filename,
-        wikiContent: $("#WikiContent")[0].innerHTML
+        filename: currfile,
+        wikiContent: ace_editor.getValue()
     }, function (data) {
         alert(data);
     });
@@ -76,18 +85,89 @@ function init(){
         tmp2=domtree;
         $("#treeroot").append(domtree);
         $('#treeroot').treed();
+
+
+        $("#treeroot a").click(function(){
+            currfile=$(this)[0].href;
+
+            $.ajax({
+                url: currfile,
+                method:"GET",
+                success:suc=function(data){
+                    var json;
+                    try{
+                        json= JSON.parse(data)
+                    }catch(e){
+                        json={"转换为:":data};
+                        console.log("转换出错");
+                    }
+                    editor_text.set(json);
+                    editor_tree.set(json);
+                    ace_editor.setValue(data);
+                },
+                error:function(err){
+                    //如果是js文件加载执行以后
+                    //readyState: 4, responseText: "{"a":"aaaa"↵}", status: 200, statusText: "OK"}
+                    if(err.status==200){
+                        suc(err.responseText)
+                        //editor_text.set(JSON.parse(err.responseText));
+                        //editor_tree.set(JSON.parse(err.responseText));
+                        //ace_editor.setValue(err.responseText);
+                    }
+                     console.log("出错");
+                }
+            });
+            //
+            //$.get(currfile, function (data) {
+            //
+            //    editor_text.set(cc);
+            //    editor_tree.set(cc);
+            //    ace_editor.setValue(data);
+            //    //alert(data);
+            //});
+
+
+
+
+            return false;
+        })
+//
+//        $("#treeroot a").each(function(){
+//
+////        $(this)[0].oncontextmen=function(){
+////            return false;
+////        };
+//            $(this).mousedown(function(e){
+//                var key = e.which; // 鼠标键位（右键3，左键1，滚轮2）
+//                if(key == 3){
+//                    var x = e.clientX;
+//                    var y = e.clientY;
+//                    $(".text").html("X: "+x+" Y: "+y);
+//                    $(".desk").show().css({left:x,top:y});
+//                }
+//                if(key == 1){
+//                    var x = e.clientX;
+//                    var y = e.clientY;
+//                    $(".text").html("X: "+x+" Y: "+y);
+//                    $(".desk").show().css({left:x,top:y});
+//                    if (e.preventDefault) {
+//                        e.preventDefault();
+//                    } else {
+//                        e.returnValue = false;
+//                    }
+//                    e.stopPropagation();
+//                    console.log("ab");
+//                  //  return false;
+//
+//                }
+//
+//            })
+//
+//        });
     });
 
 
     // create the editor
-    var container = document.getElementById("jestree");
-    var editor = new JSONEditor(container);
-    var container2 = document.getElementById("jestext");
-    var editor = new JSONEditor(container2,{
-        "mode": "text",
-        "indentation": 2
-    });
-
     // set json
     var json = {
         "Array": [1, 2, 3],
@@ -97,10 +177,31 @@ function init(){
         "Object": {"a": "b", "c": "d"},
         "String": "Hello World"
     };
-    editor.set(json);
+
+    var container = document.getElementById("jestree");
+     editor_tree = new JSONEditor(container);
+     editor_tree.set(json);
+     container = document.getElementById("jestext");
+     editor_text = new JSONEditor(container,{
+                    "mode": "text",
+                    "indentation": 2
+                });
+     editor_text.set(json);
+
+    editor_out_raw=new JSONEditor($("#jestreeoutraw")[0]);
+    editor_out_json=new JSONEditor($("#jestreeout")[0]);
+
+
+    $("#jesace").text(JSON.stringify(json));
+    ace_editor = ace.edit("jesace");
+    ace_editor.setTheme("ace/theme/twilight");
+    ace_editor.getSession().setMode("ace/mode/javascript");
+    //editor = new JSONEditor(container,jj);
+    //editor.set(json);
+
 
     // get json
-    var json = editor.get();
+    var json = editor_tree.get();
 
 }
 
@@ -109,7 +210,10 @@ document.onkeydown = function (event) {
     var e = event || window.event;
     var keyCode = e.keyCode || e.which;
     if (e.ctrlKey && (keyCode == 83 )) {
-        $("#f").submit();
+       // $("#f").submit();
+        console.log("保存");
+        $("#save").trigger("click");
+        save();
         e.returnValue = false;
     }
 }

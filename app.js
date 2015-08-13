@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
 app.use(cookieParser());
 
 app.use('/', wiki);
+app.use(express.static(path.join(__dirname, 'cases')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 

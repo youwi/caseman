@@ -32,12 +32,22 @@ router.use("/caseList", function(request, response, next) {
 router.use("/caseSave", function(request, response, next) {
 
 
-    fs.writeFile(request.body.filename,request.body.wikiContent,function(err){
-        if(err)
+    var url=require("url");
+    var filename=url.parse(request.body.filename).pathname;
+    var realname=path.join(__dirname,"..","cases",filename);
+
+    fs.writeFile(realname,request.body.wikiContent,function(err){
+        if(err){
             console.log(err+request.body.filename,request.body.wikiContent);
+            response.send("保存失败"+err);
+        }
+
+        else{
+            response.send("保存ok");
+        }
 
     });
-    response.send("ok");
+   // response.send("ok");
  //   next();
    // console.log(request.body.filename,request.body.wikiContent);
 
