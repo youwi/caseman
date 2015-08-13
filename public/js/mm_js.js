@@ -123,7 +123,7 @@ function refreshTree(){
 
         $("#treeroot a").click(function(){
             currfile=$(this)[0].href;
-
+            $("#d_filename").text(currfile);
             $.ajax({
                 url: currfile,
                 method:"GET",

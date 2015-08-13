@@ -1,9 +1,35 @@
 
+body{
+    line-height: 1
+}
+
+.jsoneditor div.tree button {
+    height: 18px;
+
+}
+
+/*修正上下高度
+*/
+.jsoneditor .field, .jsoneditor .readonly, .jsoneditor .value {
+    border: 1px solid transparent;
+     min-height: 12px;
+     min-width: 32px;
+     padding: 0px;
+     margin: 0px;
+    word-wrap: break-word;
+    float: left;
+}
 
 .height100{
     height: calc(100% - 0px);
 }
 
+.input-group[class*=col-] {
+     float: right;
+}
+#d_filename{
+    color: wheat;
+}
 
 #filelist{
     width: 125px;
