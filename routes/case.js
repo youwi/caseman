@@ -11,7 +11,7 @@ fs.readFile(path.join(__dirname, 'pad.html'),function(err,data){
 
 router.use("/caseAdd", function(request, response, next) {
 
-    var newfilename=path.join(__dirname,'..',"public",request.body.filename);
+    var newfilename=path.join(__dirname,'..',"cases",request.body.filename);
 
     mkdirsSync(request.body.filename,0777);
     if(!fs.existsSync(newfilename))
@@ -62,17 +62,20 @@ router.use("/caseRun", function(request, response, next) {
 
     var child=require("child_process");
     child.exec("node "+realname,function(error, stdout, stderr){
-
+        response.send({
+            "error":error,
+            "stdout":stdout,
+            "stderr":stderr
+        });
     });
-    fs.readFile( realname,function(err,data){
+/*    fs.readFile( realname,function(err,data){
         try{
              var out= eval(data);
-
         }catch(err){
             response.send("err"+err);
         }
         response.send(out);
-    });
+    });*/
 
 
 });

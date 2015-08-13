@@ -39,14 +39,6 @@ function buildTree(node,dir){
 }
 
 
-$("#newfile").click(function () {
-    $.post('/wikiAdd', {
-        filename: thfilename.value,
-
-    }, function (data) {
-
-    });
-});
 $("#tagop").click(function () {
     $("#tagedit").slideToggle("slow");
 });
@@ -78,7 +70,16 @@ $("#upload").click(function () {
     upac();
 });
 
-
+$("#newfile").click(function(){
+    $.post('/caseAdd', {
+        filename:thfilename.value,
+    },function(data){
+        $.globalMessenger().post(data);
+        $("#myModal").hide();
+        refreshTree();
+        //window.location.href = "/"+thfilename.value
+    });
+});
 $("#runcurr").click(function () {
     // var filename = $('#WikiContent').data("file");
 
@@ -108,9 +109,8 @@ $("#runcurr").click(function () {
     });
 });
 
-
-function init(){
-
+function refreshTree(){
+    $('#treeroot').empty();
     $.getJSON("/caseList?root="+$("myroot").val(),function(json){
 
         var domtree="<li>root\n";
@@ -148,7 +148,7 @@ function init(){
                         //editor_tree.set(JSON.parse(err.responseText));
                         //ace_editor.setValue(err.responseText);
                     }
-                     console.log("出错");
+                    console.log("出错");
                 }
             });
             //
@@ -165,7 +165,7 @@ function init(){
 
             return false;
         })
-//
+        //
 //        $("#treeroot a").each(function(){
 //
 ////        $(this)[0].oncontextmen=function(){
@@ -199,17 +199,15 @@ function init(){
 //
 //        });
     });
+}
 
+function init(){
+
+    refreshTree();
 
     // create the editor
     // set json
     var json = {
-        "Array": [1, 2, 3],
-        "Boolean": true,
-        "Null": null,
-        "Number": 123,
-        "Object": {"a": "b", "c": "d"},
-        "String": "Hello World"
     };
 
     var container = document.getElementById("jestree");
