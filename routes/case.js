@@ -18,6 +18,8 @@ router.use("/caseAdd", function(request, response, next) {
         fs.writeFile(newfilename,"空白内容",function(err){
             if(err)
                 console.log(err+"新建文件出错"+newfilename);
+
+
         });
     response.end();
 });
@@ -44,6 +46,16 @@ router.use("/caseSave", function(request, response, next) {
 
         else{
             response.send("保存ok");
+            var exec = require('child_process').exec;
+            exec('git add * && git commit -m "ok" ',
+                function (error, stdout, stderr) {
+                    if (error !== null) {
+                        console.log('git error: ' + error);
+                    }
+                    console.log(' 成功加入git版本控制 ' );
+
+
+                });
         }
 
     });
@@ -119,7 +131,7 @@ function readFile(path,filesList){
 
 function mkdirsSync(dirpath, mode) {
 
-    process.chdir(path.join(__dirname,"..","public"));
+    process.chdir(path.join(__dirname,"..","cases"));
     if (!fs.existsSync(dirpath)) {
         var pathtmp;
        // var count;

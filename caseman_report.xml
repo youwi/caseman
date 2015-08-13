@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite name="">
+		<testcase  classname="caseman" name="/Users/yu/workspace_me/caseman/cases/dir1/dir122/abeee.js" status="pass" time="0.1">
+                    <system-out>200 OK
+http://192.168.1.12:8080/mobile/group/establishGroup.do
+ 发送报文:{&quot;id&quot;:&quot;&quot;,&quot;name&quot;:&quot;第一个群&quot;,&quot;targetId&quot;:&quot;8&quot;,&quot;joinMember&quot;:&quot;1032,1033,1034&quot;}
+ 期待报文:{}
+ 返回报文:{&quot;message&quot;:&quot;密码已被修改，请重新登录&quot;,&quot;status&quot;:&quot;8&quot;}
+
+</system-out>
+		</testcase>
+	</testsuite>
+
+</testsuites>
