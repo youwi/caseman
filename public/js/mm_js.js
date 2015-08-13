@@ -64,15 +64,49 @@ $("#save").click(save=function () {
         filename: currfile,
         wikiContent: ace_editor.getValue()
     }, function (data) {
-        alert(data);
+        $.globalMessenger().post({
+            message: data,
+            hideAfter:1,
+            type: 'error',
+            showCloseButton: true
+        });
     });
 });
 $("#upload").click(function () {
-    //alert("#upload");
+    //$.globalMessenger().post("#upload");
     $("#uppc")[0].click();
     upac();
 });
 
+
+$("#runcurr").click(function () {
+    // var filename = $('#WikiContent').data("file");
+
+    $.ajax({
+        url: '/caseRun',
+        data:{ filename: currfile},
+        method:"POST",
+        success:suc=function(data){
+            var json;
+            try{
+                json= JSON.parse(data)
+            }catch(e){
+                json={"转换为:":data};
+                console.log("转换出错");
+            }
+            editor_out_json.set(json);
+            editor_out_raw.set(data);
+
+        },
+        error:function(err){
+            if(err.status==200){
+                suc(err.responseText)
+
+            }
+            console.log("出错");
+        }
+    });
+});
 
 
 function init(){
@@ -123,7 +157,7 @@ function init(){
             //    editor_text.set(cc);
             //    editor_tree.set(cc);
             //    ace_editor.setValue(data);
-            //    //alert(data);
+            //    //$.globalMessenger().post(data);
             //});
 
 
@@ -223,4 +257,10 @@ $(document).ready( function () {
     init();
 
 })
+$._messengerDefaults = {
+    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left',
+    theme: 'flat',
+    hideAfter: 1
+};
+
 
