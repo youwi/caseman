@@ -6,7 +6,7 @@ var currfile="";//正在编辑的文件名,全名
 var currroot="";
 var editor_tree;
 var editor_text;
-var editor_ace;
+
 var editor_out_json;
 var editor_out_raw;
 var ace_editor;
@@ -130,7 +130,7 @@ function refreshTree(){
                 success:suc=function(data){
                     var json;
                     try{
-                        json= JSON.parse(data)
+                        json= JSON.parse(data.replace(/\n/g,""))
                     }catch(e){
                         json={"转换为:":data};
                         console.log("转换出错");
@@ -228,12 +228,19 @@ function init(){
     ace_editor = ace.edit("jesace");
     ace_editor.setTheme("ace/theme/twilight");
     ace_editor.getSession().setMode("ace/mode/javascript");
+    ace_editor.$blockScrolling=1;
     //editor = new JSONEditor(container,jj);
     //editor.set(json);
 
 
     // get json
     var json = editor_tree.get();
+
+
+    //editor_text.$blockScrolling = Infinity;
+    //editor_tree.$blockScrolling = Infinity;
+    //editor_out_json.$blockScrolling = Infinity;
+    //editor_out_raw.$blockScrolling = Infinity;
 
 }
 
