@@ -1,0 +1,654 @@
+
+<!--这里是主页架子-->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div class=" ">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">文件名</span>
+                        <input id="thfilename" type="text" class="form-control" placeholder="qwer/abc.html" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="newfile">立即新建文件</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top navbar-layoutit  navfix">
+    <div class="navbar-header navfix">
+        <button data-target="navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+            <span class="glyphicon-bar"></span>
+            <span class="glyphicon-bar"></span>
+            <span class="glyphicon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Case<span class="label label-default">.....</span></a>
+    </div>
+    <div class="collapse navbar-collapse navfix">
+
+<!--
+        <ul class="nav pull-right navfix">
+            <li>
+                <div class="btn-group">
+                    <a class="btn btn-xs btn-info" href="#">关于我们</a>
+                </div>
+
+
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <button href="template/feedback.html" role="button" data-toggle="modal" data-target="#feedbackModal" id="feedback" class="btn btn-xs btn-primary">
+                        <i class="glyphicon-comment glyphicon"></i> 问题反馈</button>
+                </div>
+            </li>
+        </ul>-->
+        <label id="d_filename" class="nav "></label>
+        <ul class="nav navfix  pull-right" id="menu-layoutit">
+            <li>
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" id="edit" class="active btn btn-xs btn-primary">
+                        <!--<i class="glyphicon glyphicon-edit "></i>-->
+                        编辑</button>
+                    <button type="button" class="btn btn-xs btn-primary" id="save">
+                        <!--<i class="glyphicon-eye-close glyphicon"></i>-->
+                        保存</button>
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">
+                        <!--<i class="glyphicon-eye-open glyphicon"></i> -->
+                        新建</button>
+                <!--</div>-->
+                <!--<div class="btn-group">-->
+                    <button type="button" class="btn btn-xs btn-primary" id="runcurr" data-target="#downloadModal" href="template/download.html" role="button" data-toggle="modal">
+                        <!--<i class="glyphicon-chevron-down glyphicon"></i>-->
+                        运行</button>
+                    <button class="btn btn-xs btn-primary" id="button-share-modal" href="template/saveLayout.html" role="button" data-toggle="modal" data-target="#shareModal">
+                        <!--<i class="glyphicon-share glyphicon"></i>-->
+                        保存</button>
+                    <button class="btn btn-xs btn-primary" href="#clear" id="clear"><i class="glyphicon-trash glyphicon"></i> 删除</button>
+
+                </div>
+ <!--               <div class="input-group input-group-sm col-xs-3">
+                    <span class="input-group-addon" id="sizing-addon3">@</span>
+                    <input type="text" class="form-control" placeholder="url" aria-describedby="sizing-addon3">
+                </div>-->
+
+            </li>
+        </ul>
+    </div><!--/.navbar-collapse -->
+</div>
+
+
+<div class="sidebar-nav">
+
+    <ul class="nav nav-list accordion-group">
+        <li class="nav-header">
+            <!--<i class="glyphicon-plus glyphicon"></i>文件列表-->
+            <!--<i class="glyphicon-plus glyphicon"></i>-->
+            <!--<input id="d_rootname">-->
+            <!--<div class="pull-right popover-info"><i class="glyphicon glyphicon-question-sign"></i>-->
+                <!--<div class="popover fade right"><div class="arrow"></div>-->
+                    <!--<h3 class="popover-title">提示：</h3>-->
+                    <!--<div class="popover-content">文件列表制作中</div></div>-->
+            <!--</div>-->
+            /root
+        </li>
+        <ul id="treeroot"></ul>
+    </ul>
+
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="tabbable" id="tabs-154688">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#panel-9697882" data-toggle="tab">ace</a>
+                            </li>
+                            <li >
+                                <a href="#paneljestree" data-toggle="tab">tree</a>
+                            </li>
+                            <li>
+                                <a href="#panel-9697881" data-toggle="tab">text</a>
+                            </li>
+                            <li class="outfix">
+                                <a href="#panel-997747" data-toggle="tab">raw</a>
+                            </li>
+                            <li class="outfix">
+                                <a href="#panel-530858" data-toggle="tab">json</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="panel-9697882">
+                                <pre id="jesace" class=" height100 ">
+                                </pre>
+                            </div>
+                            <div class="tab-pane " id="paneljestree">
+                                <div id="jestree" class="2col-xs-12"></div>
+                            </div>
+                            <div class="tab-pane" id="panel-9697881">
+                                <div id="jestext" class="2col-xs-12"></div>
+                            </div>
+                            <div class="tab-pane " id="panel-997747">
+                                <div id="jestreeoutraw" class="2col-xs-12 "></div>
+                            </div>
+                            <div class="tab-pane" id="panel-530858">
+                                <div id="jestreeout" class="2col-xs-12"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/mytree.plugin.css" rel="stylesheet">
+<link href="css/jsoneditor.min.css" rel="stylesheet">
+<link href="css/messenger-spinner.css" rel="stylesheet">
+<link href="css/messenger-theme-flat.css" rel="stylesheet">
+<link href="css/messenger.css" rel="stylesheet">
+<link href="css/__patch.css" rel="stylesheet">
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.mytree.plugin.js"></script>
+<script src="js/jsoneditor.min.js"></script>
+<script src="ace/ace.js"></script>
+<script src="js/messenger.min.js"></script>
+<script src="js/messenger-theme-flat.js"></script>
+
+<script src="js/mm_js.js"></script>
+
+
+<script>
+
+
+
+
+
+
+    var currfile="";//正在编辑的文件名,全名
+    var currroot="";
+    var editor_tree;
+    var editor_text;
+
+    var editor_out_json;
+    var editor_out_raw;
+    var ace_editor;
+
+    function buildTree(node,dir){
+        //domtree+="<li>root";
+        var domtree="";
+        dir=dir||"";
+        for(child in node){
+
+
+            if(child!="filename")
+            {
+                domtree+="<li>"+child;
+                domtree+=buildTree(node[child],dir+"/"+child);
+                domtree+="</li>\n";
+
+            }else{
+
+                domtree+="<ul>"
+                for(var i=0;i< node[child].length;i++)
+                    domtree+="\t\t<li><a href='"+dir+"/"+node[child][i]+"'>"+node[child][i]+"</a></li>\n";
+
+            }
+        }
+        domtree+="</ul>\n";
+
+        return domtree||"";
+
+    }
+
+
+    $("#tagop").click(function () {
+        $("#tagedit").slideToggle("slow");
+    });
+    $("#tagtask").click(function () {
+
+    });
+    $("#edit").click(function () {
+        window.frames.if.document.designMode = 'on';
+    });
+    $("#save").click(save=function () {
+        // var filename = $('#WikiContent').data("file");
+        $.ajax({
+            url: '/caseSave',
+            data:{ filename: currfile,  wikiContent: ace_editor.getValue()},
+            method:"POST",
+            success:function (data) {
+                $.globalMessenger().post({
+                    message: data,
+                    hideAfter:1,
+                    type: 'error',
+                    showCloseButton: true
+                })
+            },
+            error:function(err){
+                $.globalMessenger().post({
+                    message: err.status,
+                    hideAfter:1,
+                    type: 'error',
+                    showCloseButton: true
+                })
+                console.log("出错");
+            },
+        });
+    });
+
+    $("#upload").click(function () {
+        //$.globalMessenger().post("#upload");
+        $("#uppc")[0].click();
+        upac();
+    });
+
+    $("#newfile").click(function(){
+        $.post('/caseAdd', {
+            filename:thfilename.value,
+        },function(data){
+            $.globalMessenger().post(data);
+            $("#myModal").hide();
+            refreshTree();
+            //window.location.href = "/"+thfilename.value
+        });
+    });
+    $("#runcurr").click(function () {
+        // var filename = $('#WikiContent').data("file");
+
+        $.ajax({
+            url: '/caseRun',
+            data:{ filename: currfile},
+            method:"POST",
+            success:suc=function(data){
+                var json;
+                try{
+                    json= JSON.parse(data)
+                }catch(e){
+                    json={"转换为:":data};
+                    console.log("转换出错");
+                }
+                editor_out_json.set(json);
+                editor_out_raw.set(data);
+                $('#tabs-154688 li:eq(4) a').tab('show');
+                $.globalMessenger().post({
+                    message: 'ok',
+                    hideAfter:1,
+                    type: 'error',
+                    showCloseButton: true
+                });
+            },
+            error:function(err){
+                if(err.status==200){
+                    suc(err.responseText)
+
+                }
+                $('#tabs-154688 li:eq(3) a').tab('show');
+                console.log("出错");
+                $.globalMessenger().post({
+                    message: err.status,
+                    hideAfter:1,
+                    type: 'error',
+                    showCloseButton: true
+                });
+            }
+        });
+    });
+
+    function refreshTree(){
+        $('#treeroot').empty();
+        $.getJSON("/caseList?root="+$("myroot").val(),function(json){
+
+            var domtree="<li>root\n";
+            domtree= buildTree(json);
+            domtree +="</li>";
+            tmp2=domtree;
+            $("#treeroot").append(domtree);
+            $('#treeroot').treed();
+
+
+            $("#treeroot a").click(function(){
+                currfile=$(this)[0].href;
+                $("#d_filename").text(currfile);
+                $.ajax({
+                    url: currfile,
+                    method:"GET",
+                    success:suc=function(data){
+                        var json;
+                        try{
+                            json= JSON.parse(data.replace(/\n/g,""))
+                        }catch(e){
+                            json={"转换为:":data};
+                            console.log("转换出错");
+                        }
+                        editor_text.set(json);
+                        editor_tree.set(json);
+                        ace_editor.setValue(data);
+                    },
+                    error:function(err){
+                        //如果是js文件加载执行以后
+                        //readyState: 4, responseText: "{"a":"aaaa"↵}", status: 200, statusText: "OK"}
+                        if(err.status==200){
+                            suc(err.responseText)
+                            //editor_text.set(JSON.parse(err.responseText));
+                            //editor_tree.set(JSON.parse(err.responseText));
+                            //ace_editor.setValue(err.responseText);
+                        }
+                        console.log("出错");
+                    }
+                });
+                //
+                //$.get(currfile, function (data) {
+                //
+                //    editor_text.set(cc);
+                //    editor_tree.set(cc);
+                //    ace_editor.setValue(data);
+                //    //$.globalMessenger().post(data);
+                //});
+
+
+
+
+                return false;
+            })
+            //
+//        $("#treeroot a").each(function(){
+//
+////        $(this)[0].oncontextmen=function(){
+////            return false;
+////        };
+//            $(this).mousedown(function(e){
+//                var key = e.which; // 鼠标键位（右键3，左键1，滚轮2）
+//                if(key == 3){
+//                    var x = e.clientX;
+//                    var y = e.clientY;
+//                    $(".text").html("X: "+x+" Y: "+y);
+//                    $(".desk").show().css({left:x,top:y});
+//                }
+//                if(key == 1){
+//                    var x = e.clientX;
+//                    var y = e.clientY;
+//                    $(".text").html("X: "+x+" Y: "+y);
+//                    $(".desk").show().css({left:x,top:y});
+//                    if (e.preventDefault) {
+//                        e.preventDefault();
+//                    } else {
+//                        e.returnValue = false;
+//                    }
+//                    e.stopPropagation();
+//                    console.log("ab");
+//                  //  return false;
+//
+//                }
+//
+//            })
+//
+//        });
+        });
+    }
+
+    function init(){
+
+        refreshTree();
+
+        // create the editor
+        // set json
+        var json = {
+        };
+
+        var container = document.getElementById("jestree");
+        editor_tree = new JSONEditor(container);
+        editor_tree.set(json);
+        container = document.getElementById("jestext");
+        editor_text = new JSONEditor(container,{
+            "mode": "text",
+            "indentation": 2
+        });
+        editor_text.set(json);
+
+        editor_out_raw=new JSONEditor($("#jestreeoutraw")[0]);
+        editor_out_json=new JSONEditor($("#jestreeout")[0]);
+
+
+        $("#jesace").text(JSON.stringify(json));
+        ace_editor = ace.edit("jesace");
+        ace_editor.setTheme("ace/theme/twilight");
+        ace_editor.getSession().setMode("ace/mode/javascript");
+        ace_editor.$blockScrolling=1;
+        //editor = new JSONEditor(container,jj);
+        //editor.set(json);
+
+
+        // get json
+        var json = editor_tree.get();
+
+
+        //editor_text.$blockScrolling = Infinity;
+        //editor_tree.$blockScrolling = Infinity;
+        //editor_out_json.$blockScrolling = Infinity;
+        //editor_out_raw.$blockScrolling = Infinity;
+
+    }
+
+
+    document.onkeydown = function (event) {
+        var e = event || window.event;
+        var keyCode = e.keyCode || e.which;
+        if (e.ctrlKey && (keyCode == 83 )) { // CTRL +S
+            // console.log("保存");     // $("#f").submit();    //  save();
+            $("#save").trigger("click");
+            e.returnValue = false;
+        }else if(e.ctrlKey && (keyCode == 82 )){ // CTRL+R
+            $("#runcurr").trigger("click");
+            e.returnValue = false;
+        }
+    }
+
+    $(document).ready( function () {
+
+        init();
+
+    });
+    $._messengerDefaults = {
+        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left',
+        theme: 'flat',
+        hideAfter: 1
+    };
+
+
+
+</script>
+
+
+<style>
+
+    body{
+        line-height: 1
+    }
+
+    .jsoneditor div.tree button {
+        height: 18px;
+
+    }
+    .container-fluid:after{
+        content:none !important;
+        color: #0f0f0f;
+    }
+
+    .tree ul li:before {
+        margin-top: -6px;
+    }
+
+    pre {
+        margin-bottom: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .jsoneditor .field.highlight, .jsoneditor .field[contenteditable=true]:focus, .jsoneditor .field[contenteditable=true]:hover, .jsoneditor .value.highlight, .jsoneditor .value[contenteditable=true]:focus, .jsoneditor .value[contenteditable=true]:hover {
+        background-color: rgba(192, 192, 86, 0.38);
+        border: 1px solid rgba(218, 218, 132, 0.35);
+        border-radius: 2px;
+    }
+
+    .jsoneditor .separator {
+        padding: 0px 0;
+    }
+
+    /*修正上下高度
+    */
+    .jsoneditor .field, .jsoneditor .readonly, .jsoneditor .value {
+        border: 1px solid transparent;
+        min-height: 12px;
+        min-width: 32px;
+        padding: 0px;
+        margin: 0px;
+        word-wrap: break-word;
+        float: left;
+    }
+
+    .height100{
+        height: calc(100% - 0px);
+    }
+
+    .input-group[class*=col-] {
+        float: right;
+    }
+    #d_filename{
+        color: wheat;
+    }
+
+    #filelist{
+        width: 125px;
+        float: left;
+        padding: 15px 0 15px 15px;
+        height: 100%;
+    }
+    .sidebar-nav {
+        position: fixed;
+        width: 190px;
+        left: 0px;
+        bottom: 0;
+        top: 24px;
+        background: #ccc;
+        /* padding: 10px 15px;*/
+        z-index: 10;
+        -webkit-transition: all 500ms ease;
+        -moz-transition: all 500ms ease;
+        -ms-transition: all 500ms ease;
+        -o-transition: all 500ms ease;
+        transition: all 500ms ease;
+    }
+
+
+    .nav>li>a {
+        /*
+           修正tab标签页的边距
+        */
+        position: relative;
+        display: block;
+        padding: 1px 5px;
+    }
+    .navfix{
+        /*
+            修正导航条的高度
+        */
+        height:24px !important;
+    }
+    .navbar-layoutit {
+        min-height: 32px;
+        padding: 5px;
+        height:33px;
+    }
+    #d_filename{
+        padding-top: 5px;
+    }
+
+    .navbar-brand {
+        float: left;
+        height: 24px;
+    }
+    .navbar {
+    // position: relative;
+    //min-height: 24px;
+        margin-bottom: 0px;
+        -moz-box-shadow:0px 2px 5px #333333; -webkit-box-shadow:0px 2px 5px #333333; box-shadow:0px 2px 5px #333333;
+    }
+    .navbar-layoutit {
+        min-height: 24px;
+        padding: 0px;
+        height: 24px;
+    }
+    .outfix{
+        float:right !important;
+    }
+    .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+        color: #555;
+        cursor: default;
+        background-color: #D5DDF6;
+    }
+
+    .jsoneditor{
+        border-top-width: 0px;
+    }
+    body {
+        /*
+        修正导航条和35像素和 滚动条
+        */
+        height: calc(100% - 24px);
+        padding-top: 26px;
+        padding-bottom: 1px;
+        margin-left: 200px;
+        -webkit-transition: margin 500ms ease;
+        -moz-transition: margin 500ms ease;
+        -ms-transition: margin 500ms ease;
+        -o-transition: margin 500ms ease;
+        transition: margin 500ms ease;
+    }
+
+    .navbar-layoutit .navbar-brand {
+        width: 180px;
+        color: #fff;
+        padding: 0;
+        margin: 0 5px;
+    }
+
+    .navbar-layoutit .navbar-brand .label {
+        position: relative;
+        left: 10px;
+        top: -3px;
+        font-weight: normal;
+        font-size: 9px;
+        background: #666;
+        -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.7);
+        -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.7);
+        box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+</style>
