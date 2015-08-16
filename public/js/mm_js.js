@@ -50,20 +50,30 @@ $("#edit").click(function () {
 });
 $("#save").click(save=function () {
    // var filename = $('#WikiContent').data("file");
-
-    $.post('/caseSave', {
-
-        filename: currfile,
-        wikiContent: ace_editor.getValue()
-    }, function (data) {
-        $.globalMessenger().post({
-            message: data,
-            hideAfter:1,
-            type: 'error',
-            showCloseButton: true
+    $.ajax({
+        url: '/caseSave',
+        data:{ filename: currfile,  wikiContent: ace_editor.getValue()},
+        method:"POST",
+        success:function (data) {
+            $.globalMessenger().post({
+                message: data,
+                hideAfter:1,
+                type: 'error',
+                showCloseButton: true
+            })
+        },
+        error:function(err){
+            $.globalMessenger().post({
+                message: err.status,
+                hideAfter:1,
+                type: 'error',
+                showCloseButton: true
+            })
+            console.log("出错");
+        },
         });
-    });
 });
+
 $("#upload").click(function () {
     //$.globalMessenger().post("#upload");
     $("#uppc")[0].click();
@@ -97,14 +107,27 @@ $("#runcurr").click(function () {
             }
             editor_out_json.set(json);
             editor_out_raw.set(data);
-
+            $('#tabs-154688 li:eq(4) a').tab('show');
+            $.globalMessenger().post({
+                message: 'ok',
+                hideAfter:1,
+                type: 'error',
+                showCloseButton: true
+            });
         },
         error:function(err){
             if(err.status==200){
                 suc(err.responseText)
 
             }
+            $('#tabs-154688 li:eq(3) a').tab('show');
             console.log("出错");
+            $.globalMessenger().post({
+                message: err.status,
+                hideAfter:1,
+                type: 'error',
+                showCloseButton: true
+            });
         }
     });
 });
@@ -248,11 +271,12 @@ function init(){
 document.onkeydown = function (event) {
     var e = event || window.event;
     var keyCode = e.keyCode || e.which;
-    if (e.ctrlKey && (keyCode == 83 )) {
-       // $("#f").submit();
-        console.log("保存");
+    if (e.ctrlKey && (keyCode == 83 )) { // CTRL +S
+       // console.log("保存");     // $("#f").submit();    //  save();
         $("#save").trigger("click");
-        save();
+        e.returnValue = false;
+    }else if(e.ctrlKey && (keyCode == 82 )){ // CTRL+R
+        $("#runcurr").trigger("click");
         e.returnValue = false;
     }
 }
@@ -261,7 +285,7 @@ $(document).ready( function () {
 
     init();
 
-})
+});
 $._messengerDefaults = {
     extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left',
     theme: 'flat',
