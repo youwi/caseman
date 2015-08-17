@@ -60,7 +60,7 @@
         <ul class="nav navfix  pull-right" id="menu-layoutit">
             <li>
                 <div class="btn-group" data-toggle="buttons-radio">
-                    <button type="button" id="edit" class="active btn btn-xs btn-primary">
+                    <button type="button" id="edit" class=" btn btn-xs btn-primary">
                         <!--<i class="glyphicon glyphicon-edit "></i>-->
                         编辑</button>
                     <button type="button" class="btn btn-xs btn-primary" id="save">
@@ -295,7 +295,10 @@
 
     });
     $("#edit").click(function () {
-        window.frames.if.document.designMode = 'on';
+        console.log("其实可以进入编辑态 document.designMode = 'on' 之后就可以粘贴doc;");
+        //window.frames.if.document.designMode = 'on';
+
+
     });
     $("#save").click(save=function () {
         // var filename = $('#WikiContent').data("file");
@@ -395,6 +398,7 @@
 
             $("#treeroot a").click(function(){
                 currfile=$(this)[0].href;
+                currfile=$(this).attr("href");
                 $("#d_filename").text(currfile);
                 $.ajax({
                     url: currfile,
