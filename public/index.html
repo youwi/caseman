@@ -94,7 +94,7 @@
 <div class="sidebar-nav">
 
     <ul class="nav nav-list accordion-group">
-        <li class="nav-header">
+        <li class="nav-header" id="d_copp">
             <!--<i class="glyphicon-plus glyphicon"></i>文件列表-->
             <!--<i class="glyphicon-plus glyphicon"></i>-->
             <!--<input id="d_rootname">-->
@@ -287,7 +287,18 @@
 
     }
 
-
+    var cogg;
+    $("#d_copp").click(function(){
+        if(cogg==null){
+            $(".sidebar-nav").width("350px");
+            cogg=true;
+        }
+        else{
+            $(".sidebar-nav").width("190px");
+            cogg=null
+        }
+        return false;
+    });
     $("#tagop").click(function () {
         $("#tagedit").slideToggle("slow");
     });
@@ -383,6 +394,27 @@
             }
         });
     });
+    $("#tojson").on("click", function(e) {
+        var xotree = new XML.ObjTree();
+        var dumper = new JKL.Dumper();
+        var xmlText = $("#xml").val();
+        if($("#zyBianma").attr("checked")){
+            xmlText = repalceFh(xmlText);
+        }
+        var tree = xotree.parseXML(xmlText);
+        $("#json").val(dumper.dump(tree));
+    });
+
+    $("#toxml").on("click", function(e) {
+        var xotree = new XML.ObjTree();
+        var json = eval("(" + $("#json").val() + ")");
+        $("#xml").val(formatXml(xotree.writeXML(json)));
+    });
+    function repalceFh(c){
+        return c.replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,"\"");
+    }
+  
+
 
     function refreshTree(){
         $('#treeroot').empty();
@@ -587,7 +619,7 @@
         width:10px;
         height:0;
         border-top:1px solid;
-        margin-top:-1px;
+        /*margin-top:-1px;*/
         position:absolute;
         top:1em;
         left:0
@@ -816,7 +848,7 @@
         width:10px;
         height:0;
         border-top:1px solid;
-        margin-top:-1px;
+        /*margin-top:-1px;*/
         position:absolute;
         top:1em;
         left:0
@@ -842,5 +874,10 @@
         margin:0px 0px 0px 0px;
         padding:0px 0px 0px 0px;
         outline: 0;
+    }
+    .sidebar-nav{
+        height:calc(100% - 24px);
+        overflow-y:scroll;
+        border:1px solid;
     }
 </style>
