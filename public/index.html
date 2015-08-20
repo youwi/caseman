@@ -448,8 +448,7 @@
                             if(data.toString().trim().indexOf("<?xml")==0){
                                 var xotree = new XML.ObjTree();
                                 var dumper = new JKL.Dumper();
-                                var xmlText = $("#xml").val();
-                                var tree = xotree.parseXML(xmlText);
+                                var tree = xotree.parseXML(data.toString());
                                 //dumper.dump(tree);
                                 json=tree;
                             }else{
