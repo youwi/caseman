@@ -365,7 +365,16 @@
                 try{
                     json= JSON.parse(data)
                 }catch(e){
-                    json={"转换为:":data};
+                    if(data.toString().trim().indexOf("<?xml")==0){
+                        var xotree = new XML.ObjTree();
+                        var dumper = new JKL.Dumper();
+                        var xmlText = $("#xml").val();
+                        var tree = xotree.parseXML(xmlText);
+                        //dumper.dump(tree);
+                        json=tree;
+                    }else{
+                        json={"转换为:":data};
+                    }
                     console.log("转换出错");
                 }
                 editor_out_json.set(json);
@@ -398,11 +407,8 @@
         var xotree = new XML.ObjTree();
         var dumper = new JKL.Dumper();
         var xmlText = $("#xml").val();
-        if($("#zyBianma").attr("checked")){
-            xmlText = repalceFh(xmlText);
-        }
         var tree = xotree.parseXML(xmlText);
-        $("#json").val(dumper.dump(tree));
+        //dumper.dump(tree);
     });
 
     $("#toxml").on("click", function(e) {
@@ -413,7 +419,7 @@
     function repalceFh(c){
         return c.replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,"\"");
     }
-  
+
 
 
     function refreshTree(){
@@ -440,7 +446,16 @@
                         try{
                             json= JSON.parse(data.replace(/\n/g,""))
                         }catch(e){
-                            json={"转换为:":data};
+                            if(data.toString().trim().indexOf("<?xml")==0){
+                                var xotree = new XML.ObjTree();
+                                var dumper = new JKL.Dumper();
+                                var xmlText = $("#xml").val();
+                                var tree = xotree.parseXML(xmlText);
+                                //dumper.dump(tree);
+                                json=tree;
+                            }else{
+                                json={"转换为:":data};
+                            }
                             console.log("转换出错");
                         }
                         editor_text.set(json);
