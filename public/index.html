@@ -441,9 +441,13 @@
                     out.push("</td>")
                 }
                 out.push("</tr>");
-            }else{
+            }else if(line!=""){
                 out.push("</table>");
                 out.push(line);
+                out.push("<table class='tbview'>");
+            }else if(line==""){
+                out.push("</table>");
+                out.push("<br/>");
                 out.push("<table class='tbview'>");
             }
         }
