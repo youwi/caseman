@@ -70,10 +70,11 @@ router.use("/caseRun", function(request, response, next) {
     var url=require("url");
     var filename=url.parse(request.body.filename).pathname;
     var realname=path.join(__dirname,"..","cases",filename);
+    var runner=request.body.runner||"node";
 
 
     var child=require("child_process");
-    child.exec("node "+realname,function(error, stdout, stderr){
+    child.exec(runner+" "+realname,function(error, stdout, stderr){
         response.send({
             "error":error,
             "stdout":stdout,

@@ -363,7 +363,7 @@
 
         $.ajax({
             url: '/caseRun',
-            data:{ filename: currfile},
+            data:{ filename: currfile,runner:"node"},
             method:"POST",
             success:suc=function(data){
                 var json;
@@ -492,8 +492,9 @@
                         editor_text.set(json);
                         editor_tree.set(json);
                         ace_editor.setValue(data);
+                        $("#jesdata").html(parseTable(data));
+                        $('#a-ace').tab('show');
                         if(currfile.endsWith(".txt")){
-                            $("#jesdata").html(parseTable(data));
                             $('#a-data').tab('show');
                         }
                         if(currfile.endsWith(".js")){
