@@ -72,7 +72,9 @@ router.use("/caseRun", function(request, response, next) {
     var realname=path.join(__dirname,"..","cases",filename);
     var runner=request.body.runner||"node";
 
-
+    /**
+     *
+     */
     var child=require("child_process");
     child.exec(runner+" "+realname,function(error, stdout, stderr){
         response.send({
@@ -81,6 +83,7 @@ router.use("/caseRun", function(request, response, next) {
             "stderr":stderr
         });
     });
+    // runner通常为 node ,java,脚本
 /*    fs.readFile( realname,function(err,data){
         try{
              var out= eval(data);
