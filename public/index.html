@@ -494,7 +494,10 @@
                         ace_editor.setValue(data);
                         if(currfile.endsWith(".txt")){
                             $("#jesdata").html(parseTable(data));
-                            $('#tabs-view li:eq(3) a').tab('show');
+                            $('#a-data').tab('show');
+                        }
+                        if(currfile.endsWith(".js")){
+                            $('#a-ace').tab('show');
                         }
                     },
                     error:function(err){
