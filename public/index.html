@@ -118,40 +118,46 @@
             <div class="row">
 
                 <div class="col-md-12">
-                    <div class="tabbable" id="tabs-154688">
+                    <div class="tabbable" id="tabs-view">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="#panel-9697882" data-toggle="tab">ace</a>
+                                <a href="#panel-ace" id="a-ace" data-toggle="tab">ace</a>
                             </li>
                             <li >
-                                <a href="#paneljestree" data-toggle="tab">tree</a>
+                                <a href="#panel-jestree" id="a-tree" data-toggle="tab">tree</a>
                             </li>
                             <li>
-                                <a href="#panel-9697881" data-toggle="tab">text</a>
+                                <a href="#panel-text"  id="a-text" data-toggle="tab">text</a>
+                            </li>
+                            <li  >
+                                <a href="#panel-data" id="a-data" data-toggle="tab">data</a>
                             </li>
                             <li class="outfix">
-                                <a href="#panel-997747" data-toggle="tab">raw</a>
+                                <a href="#panel-treeraw"  id="a-treeraw" data-toggle="tab">raw</a>
                             </li>
                             <li class="outfix">
-                                <a href="#panel-530858" data-toggle="tab">json</a>
+                                <a href="#panel-jestreeout" id="a-treeout" data-toggle="tab">json</a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="panel-9697882">
+                            <div class="tab-pane active" id="panel-ace">
                                 <pre id="jesace" class=" height100 ">
                                 </pre>
                             </div>
-                            <div class="tab-pane " id="paneljestree">
+                            <div class="tab-pane " id="panel-jestree">
                                 <div id="jestree" class="2col-xs-12"></div>
                             </div>
-                            <div class="tab-pane" id="panel-9697881">
+                            <div class="tab-pane" id="panel-text">
                                 <div id="jestext" class="2col-xs-12"></div>
                             </div>
-                            <div class="tab-pane " id="panel-997747">
+                            <div class="tab-pane " id="panel-treeraw">
                                 <div id="jestreeoutraw" class="2col-xs-12 "></div>
                             </div>
-                            <div class="tab-pane" id="panel-530858">
+                            <div class="tab-pane" id="panel-jestreeout">
                                 <div id="jestreeout" class="2col-xs-12"></div>
+                            </div>
+                            <div class="tab-pane" id="panel-data">
+                                <div id="jesdata" class="2col-xs-12"></div>
                             </div>
 
                         </div>
@@ -378,7 +384,7 @@
                 }
                 editor_out_json.set(json);
                 editor_out_raw.set(data);
-                $('#tabs-154688 li:eq(4) a').tab('show');
+                $('#a-treeout').tab('show');
                 $.globalMessenger().post({
                     message: 'ok',
                     hideAfter:1,
@@ -389,9 +395,8 @@
             error:function(err){
                 if(err.status==200){
                     suc(err.responseText)
-
                 }
-                $('#tabs-154688 li:eq(3) a').tab('show');
+                $('#a-treeraw').tab('show');
                 console.log("出错");
                 $.globalMessenger().post({
                     message: err.status,
@@ -417,6 +422,33 @@
     });
     function repalceFh(c){
         return c.replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,"\"");
+    }
+    function parseTable(txt) {
+        var lines=txt.split("\n");
+        var out=[];
+        out.push("<table class='tbview'>");
+        for(var line of lines) {
+            line=line.trim();
+            if (line.startsWith("|")) {
+                out.push("<tr>");
+                var cols = line.split("|");
+                cols.shift();
+                cols.pop();
+                for (var col of cols){
+                    //if(col.trim()=="") continue;
+                    out.push("<td>");
+                    out.push(col);
+                    out.push("</td>")
+                }
+                out.push("</tr>");
+            }else{
+                out.push("</table>");
+                out.push(line);
+                out.push("<table class='tbview'>");
+            }
+        }
+        out.push("</table>");
+        return out.join("");
     }
 
 
@@ -450,6 +482,7 @@
                                 var dumper = new JKL.Dumper();
                                 var tree = xotree.parseXML(data.toString());
                                 //dumper.dump(tree);
+                                $('#tabs-view li:eq(2) a').tab('show');
                                 json=tree;
                             }else{
                                 json={"转换为:":data};
@@ -459,6 +492,10 @@
                         editor_text.set(json);
                         editor_tree.set(json);
                         ace_editor.setValue(data);
+                        if(currfile.endsWith(".txt")){
+                            $("#jesdata").html(parseTable(data));
+                            $('#tabs-view li:eq(3) a').tab('show');
+                        }
                     },
                     error:function(err){
                         //如果是js文件加载执行以后
@@ -485,7 +522,7 @@
 
 
                 return false;
-            })
+            });
             //
 //        $("#treeroot a").each(function(){
 //
@@ -588,14 +625,17 @@
         extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left',
         theme: 'flat',
         hideAfter: 1
-    };
-
-
-
+    }
 </script>
 
 
 <style>
+    .tbview *{
+        border-collapse: collapse;
+        white-space: pre-line;
+        border: thin solid #777777;
+        padding:2px 10px 2px 2px;
+    }
     .tree, .tree ul {
         margin:0;
         padding:0;
@@ -894,3 +934,5 @@
         border:1px solid;
     }
 </style>
+
+
