@@ -28,6 +28,30 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="runnerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="runnerModalLabel">后台执行的命令</h4>
+            </div>
+            <div class="modal-body">
+                <div class=" ">
+                    <div class="input-group">
+                        <span class="input-group-addon"  >命令</span>
+                        <input id="runner" type="text" class="form-control" placeholder="node" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -38,7 +62,7 @@
             <span class="glyphicon-bar"></span>
             <span class="glyphicon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Case<span class="label label-default">.....</span></a>
+        <a class="navbar-brand" href="#">Case<span class="label label-default">...</span></a>
     </div>
     <div class="collapse navbar-collapse navfix">
 
@@ -60,6 +84,9 @@
         <ul class="nav navfix  pull-right" id="menu-layoutit">
             <li>
                 <div class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" class=" btn btn-xs btn-primary" data-toggle="modal" data-target="#runnerModal">
+                        <i class="glyphicon glyphicon-fire"></i>
+                        &nbsp;</button>
                     <button type="button" id="edit" class=" btn btn-xs btn-primary">
                         <!--<i class="glyphicon glyphicon-edit "></i>-->
                         编辑</button>
@@ -316,6 +343,11 @@
 
 
     });
+    $("#set").click(function () {
+
+
+
+    });
     $("#save").click(save=function () {
         // var filename = $('#WikiContent').data("file");
         $.ajax({
@@ -363,7 +395,7 @@
 
         $.ajax({
             url: '/caseRun',
-            data:{ filename: currfile,runner:"node"},
+            data:{ filename: currfile,runner:$("#runner").val()||"node"},
             method:"POST",
             success:suc=function(data){
                 var json;
